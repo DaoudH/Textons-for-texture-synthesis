@@ -9,7 +9,6 @@ title('Original')
 l=Texton(a);
 l=uint8(l);
 I = double(l);
-I=fftshift(I);
 I=normalize_image(I);
 %Afficher Texton
 figure
@@ -17,8 +16,7 @@ imagesc(I);colormap gray;
 title('Texton')
 %Seuillage
 I1=I;
-I1(I1<200 & I1>1)=100;
-imagesc(I1);colormap gray;
+I1(I1<200 & I1>30)=100;
 figure
 imagesc(I1);colormap gray;
 title('Texton thresholding')
@@ -34,7 +32,6 @@ b=real(ifft2(B));
 figure
 imagesc(b);colormap gray;
 title(" synthesize texture after phase randomization")
-
 
 %Afficher La matrice de covariance de a
 imagesc(cov(a));colormap gray;
@@ -54,3 +51,17 @@ imagesc(cov(a));colormap gray;
 figure
 imagesc(C);colormap gray;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  COLOR IMAGE TEXTON %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%charger une image en couleur
+a=imread('nuages.jpg')
+figure
+imshow(a)
+title('Original')
+figure
+alpha=[0.33;0.5;0.17]
+col_texton=Col_Texton(a,alpha)
+imshow(col_texton)
+title('Color Texton')
