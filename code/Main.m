@@ -65,3 +65,16 @@ alpha=[0.33;0.5;0.17]
 col_texton=Col_Texton(a,alpha)
 imshow(col_texton)
 title('Color Texton')
+% Randomization
+Col_texton=fft2(col_texton);
+n=randn(size(col_texton(:,:,1)));
+N=fft2(n);
+
+Col_texton(:,:,1)=abs(Col_texton(:,:,1)).*exp(i*(angle(Col_texton(:,:,1))+angle(N)));
+Col_texton(:,:,2)=abs(Col_texton(:,:,2)).*exp(i*(angle(Col_texton(:,:,2))+angle(N)));
+Col_texton(:,:,3)=abs(Col_texton(:,:,3)).*exp(i*(angle(Col_texton(:,:,3))+angle(N)));
+
+b=uint8(ifft2(Col_texton));
+figure
+imshow(b)
+title(" synthesize texture after phase randomization")
